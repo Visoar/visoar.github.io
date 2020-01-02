@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://visoar.top/favicon.ico?v=1577967064781">
+<link rel="shortcut icon" href="https://visoar.top/favicon.ico?v=1577968512168">
 <link rel="stylesheet" href="https://visoar.top/styles/main.css">
 
 
@@ -29,7 +29,7 @@
 少啰嗦，先看东西
 
 
-〇 准备清单
+〇、准备清单
 开发版
 这里我选择的是一款叫做 NodeMCU 的开发版。这个是非常好用方便且便宜的物联网开发板，自带 USB 转串口芯..." />
     <meta name="keywords" content="NodeMCU,智能家居,MQTT,物联网" />
@@ -41,7 +41,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://visoar.top">
-        <img src="https://visoar.top/images/avatar.png?v=1577967064781" class="site-logo">
+        <img src="https://visoar.top/images/avatar.png?v=1577968512168" class="site-logo">
         <h1 class="site-title">Visoar</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -134,7 +134,7 @@ var _hmt = _hmt || [];
 <h2 id="少啰嗦先看东西">少啰嗦，先看东西</h2>
 <p><img src="https://img.iotalk.top/5a8b1db6ly1fznas5ud94j21400u0779.jpg" alt="预览图" loading="lazy"><br>
 <img src="https://img.iotalk.top/5a8b1db6ly1fznas5upnxj20ku0fuq7p.jpg" alt="预览图" loading="lazy"></p>
-<h2 id="〇-准备清单">〇 准备清单</h2>
+<h2 id="〇-准备清单">〇、准备清单</h2>
 <h3 id="开发版">开发版</h3>
 <p>这里我选择的是一款叫做 NodeMCU 的开发版。这个是非常好用方便且便宜的物联网开发板，自带 USB 转串口芯片、WiFi 及多个 GPIO 接口，可连接多个传感器。硬件基于 ESP8266 构建，内置 WiFi 支持。</p>
 <h3 id="传感器">传感器</h3>
@@ -167,11 +167,11 @@ var _hmt = _hmt || [];
 </ol>
 <figure data-type="image" tabindex="2"><img src="https://img.iotalk.top/5a8b1db6ly1fznayr1urzj219r0gjq4x.jpg" alt="" loading="lazy"></figure>
 <p>至此，准备工作告一段落。后面存储的部分（时序数据库 TSDB）可在这一步骤开启，也可连通之后再开启。</p>
-<h2 id="一-开发版系统选择">一 开发版系统选择</h2>
+<h2 id="一-开发版系统选择">一、开发版系统选择</h2>
 <p>这款开发版可支持多种操作系统，如 NodeMCU（lua）、ESPEasy（WebUI）、MicroPython，以及我们今天要使用的 Mongoose OS（NodeJS）。</p>
 <p>不管是以上哪个固件，都可以跑通 MQTT。如在百度天工文档中，NodeMCU 固件下的 lua 版本<a href="https://cloud.baidu.com/doc/IOT/Quickstart-new.html#Arduino.20D1.20.26amp.3B.20NodeMCU">NodeMCU</a>。</p>
 <p>因为 Mongoose OS 刷系统不需要借助第三方工具，有一个 web 的控制台可以便于管理及调试，所以为了方便，我这次就选择了 Mongoose OS 的固件。</p>
-<h2 id="二-接线">二 接线</h2>
+<h2 id="二-接线">二、接线</h2>
 <p>将传感器与板子之间使用杜邦线连接起来。DHT11 一般包含3个接头，但根据生产商不同，标注和顺序有所不同，接线时请查看模块上的标注。我手上这颗是按如下顺序标注的：</p>
 <ul>
 <li>VCC（+、3.3v等）</li>
@@ -200,7 +200,7 @@ var _hmt = _hmt || [];
 接下来是烧录固件。将板子用 Micro-USB 的数据线与电脑连接，在引导界面，选择板子对应的接口，点击 Select。<br>
 平台会默认选择（ESP8266），App 的部分我选择了 demo-js，后面我会在这个 App 基础上进行改动以将数据采集并上报。<br>
 WiFi 的部分填写你希望板子连接到的热点（注意：仅支持2.4G）。随后点击 Done 即可，这时板子上指示灯会以较快频率闪动。</p>
-<h2 id="四-采集并上报数据">四 采集并上报数据</h2>
+<h2 id="四-采集并上报数据">四、采集并上报数据</h2>
 <p>烧录完成后，即可在浏览器中看到代码编辑界面。系统启动后会执行<code>init.js</code> ，我们的代码足够少，所以这里我们就全部写到此文件。<br>
 <img src="https://img.iotalk.top/5a8b1db6ly1fznazuqlbzj218y0u31do.jpg" alt="" loading="lazy"></p>
 <p>代码如下<br>
@@ -250,13 +250,13 @@ Timer.set(10000 /* milliseconds */, Timer.REPEAT, function() {
 <p>至此，就完成了数据采集到上报的全过程。</p>
 <p>等一哈...一开始的第二张图不是有个好看的图么，难道是假的？<br>
 当然不是。接下来的部分不需要写代码了，直接在云平台上配置即可。</p>
-<h2 id="五-数据存储">五 数据存储</h2>
+<h2 id="五-数据存储">五、数据存储</h2>
 <p>我展示的图表里，有实时值和折线图。其中折线图是过去一段时间的历史数据。所以，我们需要将数据存下来。在一开始，我想着把数据存到 MySQL 或者 MongoDB，在看了一些物联网平台，尤其是百度这个天工之后，发现「时序数据库 TSDB」是一个更好的选择。<br>
 随后发现，在天工里，我们上报到物影子的数据，如果需要简单存储到 TSDB，压根不用写代码。不过如果需要复杂的逻辑处理，好像还是要写代码，或者用一个叫规则引擎的服务。<br>
 扯远了，这次我们要存的东西比较简单，所以就用现成的功能了。在「物详情」页面（之前获取连接信息那有图），点击编辑，开启「存储配置」，把「不存储」改成「上报即存储」，选择需要存到哪个数据库（没有的话先创建个，默认配置就够用），度量名称填写 <code>monitor</code> ，点击保存即可。<br>
 <img src="https://img.iotalk.top/5a8b1db6ly1fznb0som26j20n30aqgmj.jpg" alt="" loading="lazy"></p>
 <p>这样存储的部分就配置好了，每次上报的数据，都会自动给存到 TSDB 里。可以在左侧导航选择「时序数据库」，点对应数据库的「查询面板」查看存进去的历史数据了。</p>
-<h2 id="六-做个好看的报表">六 做个好看的报表</h2>
+<h2 id="六-做个好看的报表">六、做个好看的报表</h2>
 <p>数据存好了，接下来就是展示出来。<br>
 同样的，继续使用天工的一个叫「物可视」的功能。这也是我选用百度这套平台的主要原因之一。<br>
 这个功能的引导略少，我是看文档才了解怎么用，会了之后发现超级超级简单方便。<br>
