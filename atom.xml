@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://visoar.github.io</id>
     <title>Gridea</title>
-    <updated>2020-01-02T07:29:31.906Z</updated>
+    <updated>2020-01-02T07:40:09.202Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://visoar.github.io"/>
     <link rel="self" href="https://visoar.github.io/atom.xml"/>
@@ -10,6 +10,356 @@
     <logo>https://visoar.github.io/images/avatar.png</logo>
     <icon>https://visoar.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[微信小程序中使用 MQTT 协议]]></title>
+        <id>https://visoar.github.io/post/wei-xin-xiao-cheng-xu-zhong-shi-yong-mqtt-xie-yi</id>
+        <link href="https://visoar.github.io/post/wei-xin-xiao-cheng-xu-zhong-shi-yong-mqtt-xie-yi">
+        </link>
+        <updated>2020-01-02T07:30:05.000Z</updated>
+        <summary type="html"><![CDATA[<p>由于小程序的限制，仅允许备案域名通过加密协议连接（https 和 wss）。</p>
+<p>刚好，MQTT 的是可以基于 wss 来传输的，所以，在小程序中连接 MQTT 需就可以通过 MQTT over wss 的方式实现。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>由于小程序的限制，仅允许备案域名通过加密协议连接（https 和 wss）。</p>
+<p>刚好，MQTT 的是可以基于 wss 来传输的，所以，在小程序中连接 MQTT 需就可以通过 MQTT over wss 的方式实现。</p>
+<!-- more -->
+<h3 id="开源库">开源库</h3>
+<p>目前支持 MQTT 在微信小程序里使用的库有不少，这里推荐以下两个：</p>
+<blockquote>
+<p>https://github.com/tennessine/paho.mqtt.wxapp<br>
+https://github.com/mqttjs/MQTT.js</p>
+</blockquote>
+<h3 id="demo">Demo</h3>
+<p>于是，基于上面的开源库 paho.mqtt.wxapp 做了个 demo，可以微信扫码体验下。</p>
+<figure data-type="image" tabindex="1"><img src="https://img.iotalk.top/Fso5JyIc7njd1NUPUFbOJCW-yOSE" alt="「MQTT 工具」小程序" loading="lazy"></figure>
+<p>服务器用了百度云天工的物接入，因为我用的广州区域，就适配了下广州。</p>
+<p>你可以自己在天工上创建物接入项目，获取账户密码。</p>
+<p>为了方便大家玩耍，这里提供一组测试用的账户和密码（不承诺持久有效）：</p>
+<blockquote>
+<p>账户：<code>1mvy4n5/iotalk-user</code><br>
+密码：<code>pyt1Qoy1QB7YbtOF</code><br>
+ClientID：代码中已默认填充（此处无需填写）</p>
+</blockquote>
+<p>可测试的主题：</p>
+<blockquote>
+<p>test（pub 与 sub 均已绑定权限）</p>
+</blockquote>
+<h3 id="截图示例">截图示例</h3>
+<figure data-type="image" tabindex="2"><img src="https://img.iotalk.top/FjtSsJ2LX498WYrda-C9YG2URaxX@f_png,q_90" alt="输入鉴权信息，完成登录" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://img.iotalk.top/FqSmJXuZBkxp3hko9ofZE8wir9Ye@f_png,q_90" alt="填写主题名称（test为例），完成订阅" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://img.iotalk.top/FqSmJXuZBkxp3hko9ofZE8wir9Ye@f_png,q_90" alt="向主题（test）发送消息" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://img.iotalk.top/FuKIE31pTgj6xmQiSvcLnofBEMI7@f_png,q_90" alt="查看收到的消息（可配合电脑或其他手机端测试玩耍）" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[动态创建百度云天工物接入（IoT Hub）的设备物影子]]></title>
+        <id>https://visoar.github.io/post/dong-tai-chuang-jian-bai-du-yun-tian-gong-wu-jie-ru-iot-hubde-she-bei-wu-ying-zi</id>
+        <link href="https://visoar.github.io/post/dong-tai-chuang-jian-bai-du-yun-tian-gong-wu-jie-ru-iot-hubde-she-bei-wu-ying-zi">
+        </link>
+        <updated>2019-01-28T07:31:28.000Z</updated>
+        <summary type="html"><![CDATA[<p>本例实现通过百度云函数计算，动态创建天工物接入的设备影子，并返回连接信息（影子的用户名&amp;密码）；并可搭配规则引擎，实现通过MQTT消息创建影子。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本例实现通过百度云函数计算，动态创建天工物接入的设备影子，并返回连接信息（影子的用户名&amp;密码）；并可搭配规则引擎，实现通过MQTT消息创建影子。</p>
+<!-- more -->
+<h2 id="背景">背景</h2>
+<p>场景1、天工物接入的设备型，给每个设备影子分配了设备唯一的鉴权信息（MQTT用户名+密码），但设备产线可能不具备针对每个设备烧录独一无二信息的能力。</p>
+<p>场景2、设备产线具备每个设备逐一收录的能力，但是需动态获取设备对应影子的连接信息。</p>
+<h2 id="方案分析">方案分析</h2>
+<p>对场景1，部分情况下可采用物接入（设备型）所提供的组权限（单组鉴权信息最多对应100设备）或者超级权限（可管理所有影子）；但是此方案中鉴权信息一旦泄露，设备的消息就有可能被第三方采集或伪造。所以对设备实际使用环境要求较高，一般仅在设备完全处于安全可控情况下、且对设备信息不做安全要求的情况下。</p>
+<p>还有一种思路，设备烧录统一的用于初始化的连接信息（MQTT或HTTP均可），对应所连接的服务调用 API 创建设备影子并返回鉴权信息。设备首次联网时建立连接，上报设备唯一标识作为影子名，并获取设备唯一的鉴权信息，随后断开初始化连接，使用本设备唯一的连接信息连接设备影子，开始正常工作。虽然理论上仍存在鉴权信息泄露的风险，但是泄露后最大风险为伪装建立了一些影子，相对前述风险小了很多。而且还可以针对性的通过校验白名单、加密设备标识（设备有双标识情况下还可以交叉验证）等方式进一步减小风险。</p>
+<p>对场景2，设备产线同样，可以在产线系统中实时调用 API 创建影子，并获取影子对应的连接信息以烧入设备。</p>
+<h2 id="方案描述">方案描述</h2>
+<p>根据以上分析，所以我们需要搭建一个服务（Init Service）用于设备初始化（创建影子、返回鉴权信息）<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fyfy7bfedyj20rg0c4tct.jpg" alt="方案描述" loading="lazy"></p>
+<p>搭建这个服务可以在自己的主机上，也可以使用一些更轻量级的方案，比如比较火爆的 Serveless 方案。百度云提供了 CFC（函数计算），就可以承担这一任务。<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fyfy7bf627j20on082jtd.jpg" alt="请求路径" loading="lazy"></p>
+<p>此外，若设备性能较弱，希望裁剪协议支持（如仅支持必须的 MQTT），也可以搭配 IoT Hub + 规则引擎，以 MQTT+CFC 的方式实现。</p>
+<h2 id="实现">实现</h2>
+<h3 id="函数计算">函数计算</h3>
+<p>首先在控制台开通函数计算，创建一个函数。我这里取名叫 <code>creatDevice</code>。</p>
+<p>可根据自己的群控选择语言，我一般 Python，所提供的示例 Demo 也是 Python 的。如需运行示例，可上传 zip 包，将 <code>creatDevice.zip</code> 上传上去。</p>
+<p>随后配置一下环境变量，如图添加<code>AK</code>和<code>SK</code>，对应填写自己的 AK/SK。<a href="https://cloud.baidu.com/doc/Reference/GetAKSK.html">获取AK/SK </a></p>
+<p>![CFC-环境变量](https://本例实现通过百度云函数计算，动态创建天工物接入的设备影子，并返回连接信息（影子的用户名&amp;密码）；并可搭配规则引擎，实现通过MQTT消息创建影子。</p>
+<!-- more -->
+<h2 id="背景-2">背景</h2>
+<p>场景1、天工物接入的设备型，给每个设备影子分配了设备唯一的鉴权信息（MQTT用户名+密码），但设备产线可能不具备针对每个设备烧录独一无二信息的能力。</p>
+<p>场景2、设备产线具备每个设备逐一收录的能力，但是需动态获取设备对应影子的连接信息。</p>
+<h2 id="方案分析-2">方案分析</h2>
+<p>对场景1，部分情况下可采用物接入（设备型）所提供的组权限（单组鉴权信息最多对应100设备）或者超级权限（可管理所有影子）；但是此方案中鉴权信息一旦泄露，设备的消息就有可能被第三方采集或伪造。所以对设备实际使用环境要求较高，一般仅在设备完全处于安全可控情况下、且对设备信息不做安全要求的情况下。</p>
+<p>还有一种思路，设备烧录统一的用于初始化的连接信息（MQTT或HTTP均可），对应所连接的服务调用 API 创建设备影子并返回鉴权信息。设备首次联网时建立连接，上报设备唯一标识作为影子名，并获取设备唯一的鉴权信息，随后断开初始化连接，使用本设备唯一的连接信息连接设备影子，开始正常工作。虽然理论上仍存在鉴权信息泄露的风险，但是泄露后最大风险为伪装建立了一些影子，相对前述风险小了很多。而且还可以针对性的通过校验白名单、加密设备标识（设备有双标识情况下还可以交叉验证）等方式进一步减小风险。</p>
+<p>对场景2，设备产线同样，可以在产线系统中实时调用 API 创建影子，并获取影子对应的连接信息以烧入设备。</p>
+<h2 id="方案描述-2">方案描述</h2>
+<p>根据以上分析，所以我们需要搭建一个服务（Init Service）用于设备初始化（创建影子、返回鉴权信息）<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fyfy7bfedyj20rg0c4tct.jpg" alt="方案描述" loading="lazy"></p>
+<p>搭建这个服务可以在自己的主机上，也可以使用一些更轻量级的方案，比如比较火爆的 Serveless 方案。百度云提供了 CFC（函数计算），就可以承担这一任务。<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fyfy7bf627j20on082jtd.jpg" alt="请求路径" loading="lazy"></p>
+<p>此外，若设备性能较弱，希望裁剪协议支持（如仅支持必须的 MQTT），也可以搭配 IoT Hub + 规则引擎，以 MQTT+CFC 的方式实现。</p>
+<h2 id="实现-2">实现</h2>
+<h3 id="函数计算-2">函数计算</h3>
+<p>首先在控制台开通函数计算，创建一个函数。我这里取名叫 <code>creatDevice</code>。</p>
+<p>可根据自己的群控选择语言，我一般 Python，所提供的示例 Demo 也是 Python 的。如需运行示例，可上传 zip 包，将 <code>creatDevice.zip</code> 上传上去。</p>
+<p>随后配置一下环境变量，如图添加<code>AK</code>和<code>SK</code>，对应填写自己的 AK/SK。<a href="https://cloud.baidu.com/doc/Reference/GetAKSK.html">获取AK/SK </a></p>
+<figure data-type="image" tabindex="1"><img src="https://img.iotalk.top/0071ouepgy1fyfy5485loj31jj0t8wng.jpg" alt="CFC-环境变量" loading="lazy"></figure>
+<h3 id="规则引擎">规则引擎</h3>
+<p>配置一个物接入数据型实例（或设备型中创建一个Init影子），创建身份拿到 Init 鉴权信息，我的示例中是给了<code>creatdevice</code>主题发布权限，以及<code>creatdevice/resp</code>主题的订阅权限。</p>
+<p>创建一个规则引擎，在<code>实例和主题</code>中选择对应实例，输入主题<code>creatdevice</code>；<br>
+在<code>数据目的地</code>中添加一个 函数计算CFC 的目的地，选择刚才创建的函数，并配置「结果转入主题」为<code>creatdevice/resp</code></p>
+<p>这样就完成了配置。</p>
+<h2 id="测试">测试</h2>
+<p>使用 MQTT 客户端，通过 Init 鉴权信息连接 IoT Hub，订阅（Sub）用于接受返回信息的主题 <code>creatdevice/resp</code></p>
+<p>向主题 <code>creatdevice</code> 发布（Pub）一条消息，内容为</p>
+<pre><code>{
+    &quot;deviceName&quot;: &quot;MAC10A4B9000000&quot;,
+    &quot;description&quot;: &quot;device shadow created by re &amp; cfc&quot;,
+    &quot;schemaId&quot;: &quot;8093f59e-7df2-4207-a28d-cdfd65999ac4&quot;
+}
+</code></pre>
+<ul>
+<li>其中 schemaId 可以通过 API ，也可以在控制台点开物模型详情页，从 URL 中获取。</li>
+</ul>
+<p>然后就可以在主题 <code>creatdevice/resp</code>中收到鉴权信息。<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fyfyniawfjj20ze0o5k03.jpg" alt="返回鉴权信息" loading="lazy"></p>
+<h2 id="改进">改进</h2>
+<p>在大多数情况下，设备的描述信息和物模型都是固定的，所以这部分也可以写入环境变量。</p>
+<p>如我添加了 <code>defaultSchemaId</code> 和 <code>defaultDescription</code> 的环境变量，就不需要在请求中带上<code>schemaId</code>及<code>description</code>了。<br>
+<img src="https://img.iotalk.top/0071ouepgy1fyfyipyyx1j318i0ax75o.jpg" alt="环境变量" loading="lazy"></p>
+<h2 id="本次未做">本次未做</h2>
+<p>1、鉴权信息（密码）重置：本示例中，同一影子名若重复发送，则会提示影子已经存在</p>
+<p>2、白名单或其他加密或验证方式</p>
+<h2 id="附录">附录</h2>
+<p><a href="https://github.com/Visoar/creatDeviceShadow_via_CFC_for_Baidu_IoTHub">Github - creatDeviceShadow_via_CFC_for_Baidu_IoTHub</a>/0071ouepgy1fyfy5485loj31jj0t8wng.jpg)</p>
+<h3 id="规则引擎-2">规则引擎</h3>
+<p>配置一个物接入数据型实例（或设备型中创建一个Init影子），创建身份拿到 Init 鉴权信息，我的示例中是给了<code>creatdevice</code>主题发布权限，以及<code>creatdevice/resp</code>主题的订阅权限。</p>
+<p>创建一个规则引擎，在<code>实例和主题</code>中选择对应实例，输入主题<code>creatdevice</code>；<br>
+在<code>数据目的地</code>中添加一个 函数计算CFC 的目的地，选择刚才创建的函数，并配置「结果转入主题」为<code>creatdevice/resp</code></p>
+<p>这样就完成了配置。</p>
+<h2 id="测试-2">测试</h2>
+<p>使用 MQTT 客户端，通过 Init 鉴权信息连接 IoT Hub，订阅（Sub）用于接受返回信息的主题 <code>creatdevice/resp</code></p>
+<p>向主题 <code>creatdevice</code> 发布（Pub）一条消息，内容为</p>
+<pre><code>{
+    &quot;deviceName&quot;: &quot;MAC10A4B9000000&quot;,
+    &quot;description&quot;: &quot;device shadow created by re &amp; cfc&quot;,
+    &quot;schemaId&quot;: &quot;8093f59e-7df2-4207-a28d-cdfd65999ac4&quot;
+}
+</code></pre>
+<ul>
+<li>其中 schemaId 可以通过 API ，也可以在控制台点开物模型详情页，从 URL 中获取。</li>
+</ul>
+<p>然后就可以在主题 <code>creatdevice/resp</code>中收到鉴权信息。<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fyfyniawfjj20ze0o5k03.jpg" alt="返回鉴权信息" loading="lazy"></p>
+<h2 id="改进-2">改进</h2>
+<p>在大多数情况下，设备的描述信息和物模型都是固定的，所以这部分也可以写入环境变量。</p>
+<p>如我添加了 <code>defaultSchemaId</code> 和 <code>defaultDescription</code> 的环境变量，就不需要在请求中带上<code>schemaId</code>及<code>description</code>了。<br>
+![环境变量](https://本例实现通过百度云函数计算，动态创建天工物接入的设备影子，并返回连接信息（影子的用户名&amp;密码）；并可搭配规则引擎，实现通过MQTT消息创建影子。</p>
+<!-- more -->
+<h2 id="背景-3">背景</h2>
+<p>场景1、天工物接入的设备型，给每个设备影子分配了设备唯一的鉴权信息（MQTT用户名+密码），但设备产线可能不具备针对每个设备烧录独一无二信息的能力。</p>
+<p>场景2、设备产线具备每个设备逐一收录的能力，但是需动态获取设备对应影子的连接信息。</p>
+<h2 id="方案分析-3">方案分析</h2>
+<p>对场景1，部分情况下可采用物接入（设备型）所提供的组权限（单组鉴权信息最多对应100设备）或者超级权限（可管理所有影子）；但是此方案中鉴权信息一旦泄露，设备的消息就有可能被第三方采集或伪造。所以对设备实际使用环境要求较高，一般仅在设备完全处于安全可控情况下、且对设备信息不做安全要求的情况下。</p>
+<p>还有一种思路，设备烧录统一的用于初始化的连接信息（MQTT或HTTP均可），对应所连接的服务调用 API 创建设备影子并返回鉴权信息。设备首次联网时建立连接，上报设备唯一标识作为影子名，并获取设备唯一的鉴权信息，随后断开初始化连接，使用本设备唯一的连接信息连接设备影子，开始正常工作。虽然理论上仍存在鉴权信息泄露的风险，但是泄露后最大风险为伪装建立了一些影子，相对前述风险小了很多。而且还可以针对性的通过校验白名单、加密设备标识（设备有双标识情况下还可以交叉验证）等方式进一步减小风险。</p>
+<p>对场景2，设备产线同样，可以在产线系统中实时调用 API 创建影子，并获取影子对应的连接信息以烧入设备。</p>
+<h2 id="方案描述-3">方案描述</h2>
+<p>根据以上分析，所以我们需要搭建一个服务（Init Service）用于设备初始化（创建影子、返回鉴权信息）<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fyfy7bfedyj20rg0c4tct.jpg" alt="方案描述" loading="lazy"></p>
+<p>搭建这个服务可以在自己的主机上，也可以使用一些更轻量级的方案，比如比较火爆的 Serveless 方案。百度云提供了 CFC（函数计算），就可以承担这一任务。<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fyfy7bf627j20on082jtd.jpg" alt="请求路径" loading="lazy"></p>
+<p>此外，若设备性能较弱，希望裁剪协议支持（如仅支持必须的 MQTT），也可以搭配 IoT Hub + 规则引擎，以 MQTT+CFC 的方式实现。</p>
+<h2 id="实现-3">实现</h2>
+<h3 id="函数计算-3">函数计算</h3>
+<p>首先在控制台开通函数计算，创建一个函数。我这里取名叫 <code>creatDevice</code>。</p>
+<p>可根据自己的群控选择语言，我一般 Python，所提供的示例 Demo 也是 Python 的。如需运行示例，可上传 zip 包，将 <code>creatDevice.zip</code> 上传上去。</p>
+<p>随后配置一下环境变量，如图添加<code>AK</code>和<code>SK</code>，对应填写自己的 AK/SK。<a href="https://cloud.baidu.com/doc/Reference/GetAKSK.html">获取AK/SK </a></p>
+<figure data-type="image" tabindex="2"><img src="https://img.iotalk.top/0071ouepgy1fyfy5485loj31jj0t8wng.jpg" alt="CFC-环境变量" loading="lazy"></figure>
+<h3 id="规则引擎-3">规则引擎</h3>
+<p>配置一个物接入数据型实例（或设备型中创建一个Init影子），创建身份拿到 Init 鉴权信息，我的示例中是给了<code>creatdevice</code>主题发布权限，以及<code>creatdevice/resp</code>主题的订阅权限。</p>
+<p>创建一个规则引擎，在<code>实例和主题</code>中选择对应实例，输入主题<code>creatdevice</code>；<br>
+在<code>数据目的地</code>中添加一个 函数计算CFC 的目的地，选择刚才创建的函数，并配置「结果转入主题」为<code>creatdevice/resp</code></p>
+<p>这样就完成了配置。</p>
+<h2 id="测试-3">测试</h2>
+<p>使用 MQTT 客户端，通过 Init 鉴权信息连接 IoT Hub，订阅（Sub）用于接受返回信息的主题 <code>creatdevice/resp</code></p>
+<p>向主题 <code>creatdevice</code> 发布（Pub）一条消息，内容为</p>
+<pre><code>{
+    &quot;deviceName&quot;: &quot;MAC10A4B9000000&quot;,
+    &quot;description&quot;: &quot;device shadow created by re &amp; cfc&quot;,
+    &quot;schemaId&quot;: &quot;8093f59e-7df2-4207-a28d-cdfd65999ac4&quot;
+}
+</code></pre>
+<ul>
+<li>其中 schemaId 可以通过 API ，也可以在控制台点开物模型详情页，从 URL 中获取。</li>
+</ul>
+<p>然后就可以在主题 <code>creatdevice/resp</code>中收到鉴权信息。<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fyfyniawfjj20ze0o5k03.jpg" alt="返回鉴权信息" loading="lazy"></p>
+<h2 id="改进-3">改进</h2>
+<p>在大多数情况下，设备的描述信息和物模型都是固定的，所以这部分也可以写入环境变量。</p>
+<p>如我添加了 <code>defaultSchemaId</code> 和 <code>defaultDescription</code> 的环境变量，就不需要在请求中带上<code>schemaId</code>及<code>description</code>了。<br>
+<img src="https://img.iotalk.top/0071ouepgy1fyfyipyyx1j318i0ax75o.jpg" alt="环境变量" loading="lazy"></p>
+<h2 id="本次未做-2">本次未做</h2>
+<p>1、鉴权信息（密码）重置：本示例中，同一影子名若重复发送，则会提示影子已经存在</p>
+<p>2、白名单或其他加密或验证方式</p>
+<h2 id="附录-2">附录</h2>
+<p><a href="https://github.com/Visoar/creatDeviceShadow_via_CFC_for_Baidu_IoTHub">Github - creatDeviceShadow_via_CFC_for_Baidu_IoTHub</a>/0071ouepgy1fyfyipyyx1j318i0ax75o.jpg)</p>
+<h2 id="本次未做-3">本次未做</h2>
+<p>1、鉴权信息（密码）重置：本示例中，同一影子名若重复发送，则会提示影子已经存在</p>
+<p>2、白名单或其他加密或验证方式</p>
+<h2 id="附录-3">附录</h2>
+<p><a href="https://github.com/Visoar/creatDeviceShadow_via_CFC_for_Baidu_IoTHub">Github - creatDeviceShadow_via_CFC_for_Baidu_IoTHub</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ 20元体验物联网——简易环境监测站]]></title>
+        <id>https://visoar.github.io/post/20-yuan-ti-yan-wu-lian-wang-jian-yi-huan-jing-jian-ce-zhan</id>
+        <link href="https://visoar.github.io/post/20-yuan-ti-yan-wu-lian-wang-jian-yi-huan-jing-jian-ce-zhan">
+        </link>
+        <updated>2019-01-01T11:22:01.000Z</updated>
+        <summary type="html"><![CDATA[<p>在本例中，将使用廉价开发版，及通用物联网云平台带领大家搭建一个环境温湿度监测站。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在本例中，将使用廉价开发版，及通用物联网云平台带领大家搭建一个环境温湿度监测站。</p>
+<!-- more -->
+<h2 id="少啰嗦先看东西">少啰嗦，先看东西</h2>
+<p><img src="https://img.iotalk.top/5a8b1db6ly1fznas5ud94j21400u0779.jpg" alt="预览图" loading="lazy"><br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznas5upnxj20ku0fuq7p.jpg" alt="预览图" loading="lazy"></p>
+<h2 id="〇-准备清单">〇 准备清单</h2>
+<h3 id="开发版">开发版</h3>
+<p>这里我选择的是一款叫做 NodeMCU 的开发版。这个是非常好用方便且便宜的物联网开发板，自带 USB 转串口芯片、WiFi 及多个 GPIO 接口，可连接多个传感器。硬件基于 ESP8266 构建，内置 WiFi 支持。</p>
+<h3 id="传感器">传感器</h3>
+<p>传感器方面因为我对精度要求不是很高，所以选择了一款廉价的温湿度传感器——DHT11。这是一款温湿度传感器，可以用来测试环境温湿度，其精度湿度+-5%RH， 温度+-2℃，量程湿度20-90%RH， 温度0~50℃。</p>
+<h3 id="云平台准备">云平台准备</h3>
+<h4 id="云平台选择">云平台选择</h4>
+<p>我的目的是要将数据报到云端，然后做个展示，当然你也可以自行搭建 MQTT Broker 及数据存储、展示部分。这里我就方便些，选择一个提供物联网平台的云服务了。<br>
+在评估了百度天工物联网平台、阿里物联网套件、腾讯 IoT 套件后，决定选择百度天工。主要是两个方面的考虑：</p>
+<ul>
+<li>百度天工支持标准的 MQTT 接入</li>
+<li>存储的过程无需编码</li>
+<li>提供现成的可视化报表制作工具<br>
+不过也有一些问题，但是也算瑕不掩瑜吧：提供了物接入和物管理两个接入入口，但实际上物接入是裸协议，物管理会方便很多；日志查询交互有点反人类，默认进去无内容，需要点一下搜索才出来，排查的时候以为没有报日志上来。</li>
+</ul>
+<h4 id="云平台操作">云平台操作</h4>
+<ol>
+<li>注册百度云天工账号并认证 <a href="https://cloud.baidu.com/">天工-物联网平台</a><br>
+在左侧「产品服务」-「物联网服务」中，选择「物接入」，购买一个月的套餐（根据情况选择消息条数，因为我上报的数据比较多，所以我这里选了200万条）。<br>
+随后，在左侧菜单选择「物管理」。进入物管理后，点击「新建物模型」。<br>
+填写「名称」、「添加属性」。这里的属性就是我们需要采集的上报的信息，所以这里我加了两个属性：
+<ul>
+<li>Temperature 温度 number类型</li>
+<li>Humidity 湿度 number类型</li>
+</ul>
+</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://img.iotalk.top/5a8b1db6ly1fznawk2ccdj20nw0go0tp.jpg" alt="创建物模型" loading="lazy"></figure>
+<ol start="2">
+<li>创建完物模型，接下来创建物影子。名称自定义即可，这个在后面会用到。来自的物模型选择刚才创建的模型，点击创建即可完成。创建完成后，获取连接信息备用（连接信息中，key 是仅在生成后显示一次的）。</li>
+</ol>
+<figure data-type="image" tabindex="2"><img src="https://img.iotalk.top/5a8b1db6ly1fznayr1urzj219r0gjq4x.jpg" alt="" loading="lazy"></figure>
+<p>至此，准备工作告一段落。后面存储的部分（时序数据库 TSDB）可在这一步骤开启，也可连通之后再开启。</p>
+<h2 id="一-开发版系统选择">一 开发版系统选择</h2>
+<p>这款开发版可支持多种操作系统，如 NodeMCU（lua）、ESPEasy（WebUI）、MicroPython，以及我们今天要使用的 Mongoose OS（NodeJS）。</p>
+<p>不管是以上哪个固件，都可以跑通 MQTT。如在百度天工文档中，NodeMCU 固件下的 lua 版本<a href="https://cloud.baidu.com/doc/IOT/Quickstart-new.html#Arduino.20D1.20.26amp.3B.20NodeMCU">NodeMCU</a>。</p>
+<p>因为 Mongoose OS 刷系统不需要借助第三方工具，有一个 web 的控制台可以便于管理及调试，所以为了方便，我这次就选择了 Mongoose OS 的固件。</p>
+<h2 id="二-接线">二 接线</h2>
+<p>将传感器与板子之间使用杜邦线连接起来。DHT11 一般包含3个接头，但根据生产商不同，标注和顺序有所不同，接线时请查看模块上的标注。我手上这颗是按如下顺序标注的：</p>
+<ul>
+<li>VCC（+、3.3v等）</li>
+<li>DATA（D、S、SIG 等）</li>
+<li>GND（-、G 等）</li>
+</ul>
+<p>VCC 和 GND 可与板子上对应标注位连接；DATA 接到 GPIO 口即可。<br>
+因为 D4距离较近，于是 GPIO 口我就选了 D4 。<br>
+接线如图：<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznaz19z9sj20ci0ch75g.jpg" alt="" loading="lazy"><br>
+实物图：<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznazd9wrvj20kh0gqwib.jpg" alt="" loading="lazy"></p>
+<h2 id="三-刷系统">三 刷系统</h2>
+<h3 id="安装驱动">安装驱动</h3>
+<p>淘宝上可买到的 NodeMCU，所集成的 USB 转串口的芯片一般有 CP2102 和 CH340 两种，驱动下载地址分别为：<a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">CP2102</a> <a href="http://www.wch.cn/search?q=340&amp;t=downloads">CH-340</a>。</p>
+<h3 id="安装">安装</h3>
+<p>随后，我们要下载 Mongoose OS。根据你的操作系统，在 <a href="https://mongoose-os.com/software.html">MongooseOS 官网</a> 选择对应方式进行安装。</p>
+<p>我的是 macOS，所以直接使用以下命令安装。</p>
+<pre><code>curl -fsSL https://mongoose-os.com/downloads/mos/install.sh | /bin/bash
+~/.mos/bin/mos --help      
+~/.mos/bin/mos
+</code></pre>
+<p>安装完成后，就会自动打开浏览器。这时候你会看到引导界面。<br>
+如果没有启动，可输入 <code>cd .mos/bin/</code> 或者进入自定义的安装目录，执行 <code>./mos</code> 来运行管理界面。（Windows 用户直接双击即可）<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznaznj95vj20i20f1q55.jpg" alt="" loading="lazy"><br>
+接下来是烧录固件。将板子用 Micro-USB 的数据线与电脑连接，在引导界面，选择板子对应的接口，点击 Select。<br>
+平台会默认选择（ESP8266），App 的部分我选择了 demo-js，后面我会在这个 App 基础上进行改动以将数据采集并上报。<br>
+WiFi 的部分填写你希望板子连接到的热点（注意：仅支持2.4G）。随后点击 Done 即可，这时板子上指示灯会以较快频率闪动。</p>
+<h2 id="四-采集并上报数据">四 采集并上报数据</h2>
+<p>烧录完成后，即可在浏览器中看到代码编辑界面。系统启动后会执行<code>init.js</code> ，我们的代码足够少，所以这里我们就全部写到此文件。<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznazuqlbzj218y0u31do.jpg" alt="" loading="lazy"></p>
+<p>代码如下<br>
+其中</p>
+<ul>
+<li><code>pin</code> 是按 ESP8266 的编号，我们上面接线的 D4 对应 ESP8266  2 号 GPIO 口，所以这里填的2。</li>
+<li><code>$baidu/iot/shadow/xxxxxxxxxxx/update</code> 中的 xxxxxxxxxxx 替换为你在前面百度天工中创建的物影子名称。</li>
+</ul>
+<pre><code>load('api_dht.js');
+load('api_mqtt.js');
+load('api_timer.js');
+
+// GPIO pin which has a DHT sensor data wire connected
+let pin = 2;
+
+// Initialize DHT library
+let dht = DHT.create(pin, DHT.DHT11);
+
+// This function reads data from the DHT sensor every 10 second
+Timer.set(10000 /* milliseconds */, Timer.REPEAT, function() {
+  let t = dht.getTemp();
+  let h = dht.getHumidity();
+
+  if (isNaN(h) || isNaN(t)) {
+    print('Failed to read data from sensor');
+    return;
+  }
+  
+  let data = {&quot;reported&quot;:{ temperature:t, humidity:h }};
+  let myData = JSON.stringify(data);
+  
+  let ok = MQTT.pub(&quot;$baidu/iot/shadow/xxxxxxxxxxx/update&quot;, myData, 1);
+  print('Published:', ok ? 'yes' : 'no', ',message:', myData);
+  
+  print('Temperature:', t, '*C');
+  print('Humidity:', h, '%');
+}, null);
+</code></pre>
+<p>你一定会好奇，前面的连接信息哪里去了。在 MongooseOS 里，MQTT 的连接信息是写在配置文件的。<br>
+点击 MongooseOS 浏览器界面左侧的 <code>DeviceConf</code> ，可看到 MQTT 配置界面。将前面的连接信息填写进来，点击左上角的 <code>Save</code> 即可<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznb058hk4j20jh06q3z3.jpg" alt="" loading="lazy"></p>
+<p>再回到 <code>Projects</code> 的代码编写界面，点击那个长得像上传的图标（如图），保存文件并传输到板子上重启。<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznb0ayughj208z02dwel.jpg" alt="" loading="lazy"><br>
+这时，你就可以看到 Logs 里在打印温湿度信息，并显示上报成功（Yes）。如果为 no，可以配合本地 Log 及天工里「平台通用功能」-「日志」进行错误排查。</p>
+<p>传输成功后，在天工「物影子详情」页面上就可以看到刚刚上报的数据了。<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznb0i66tgj20vo0gr0ua.jpg" alt="" loading="lazy"></p>
+<p>至此，就完成了数据采集到上报的全过程。</p>
+<p>等一哈...一开始的第二张图不是有个好看的图么，难道是假的？<br>
+当然不是。接下来的部分不需要写代码了，直接在云平台上配置即可。</p>
+<h2 id="五-数据存储">五 数据存储</h2>
+<p>我展示的图表里，有实时值和折线图。其中折线图是过去一段时间的历史数据。所以，我们需要将数据存下来。在一开始，我想着把数据存到 MySQL 或者 MongoDB，在看了一些物联网平台，尤其是百度这个天工之后，发现「时序数据库 TSDB」是一个更好的选择。<br>
+随后发现，在天工里，我们上报到物影子的数据，如果需要简单存储到 TSDB，压根不用写代码。不过如果需要复杂的逻辑处理，好像还是要写代码，或者用一个叫规则引擎的服务。<br>
+扯远了，这次我们要存的东西比较简单，所以就用现成的功能了。在「物详情」页面（之前获取连接信息那有图），点击编辑，开启「存储配置」，把「不存储」改成「上报即存储」，选择需要存到哪个数据库（没有的话先创建个，默认配置就够用），度量名称填写 <code>monitor</code> ，点击保存即可。<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznb0som26j20n30aqgmj.jpg" alt="" loading="lazy"></p>
+<p>这样存储的部分就配置好了，每次上报的数据，都会自动给存到 TSDB 里。可以在左侧导航选择「时序数据库」，点对应数据库的「查询面板」查看存进去的历史数据了。</p>
+<h2 id="六-做个好看的报表">六 做个好看的报表</h2>
+<p>数据存好了，接下来就是展示出来。<br>
+同样的，继续使用天工的一个叫「物可视」的功能。这也是我选用百度这套平台的主要原因之一。<br>
+这个功能的引导略少，我是看文档才了解怎么用，会了之后发现超级超级简单方便。<br>
+我以做一张我截图那种报表为例，来大概说一下步骤：</p>
+<ul>
+<li>首先进到物可视，点创建「仪表盘」</li>
+<li>进入后，顶上有俩标签，选择「数据表」</li>
+<li>左侧新建数据表，因为我有俩仪表指针图和一个时序折线图，所以这一步我要创建两个数据表，一个时序数据库类型，一个物管理类型</li>
+<li>创建完后，返回「仪表盘」。将需要的图拖动到空白处，点对应的图，右侧设置一下绑定数据，如下图<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznb10pbksj20qz0huq5w.jpg" alt="" loading="lazy"></li>
+</ul>
+<p>这里介绍了一小部分功能，需要展示更多的部分，可以再看看文档。</p>
+<h2 id="结束">结束</h2>
+<p>至此，整个搭建到展示的过程完成。<br>
+一共花费为 20 元 = （NodeMCU板 14.5 元）+ （DHT11传感器 4.5元） + （时序数据库 1 元）<br>
+这是套最基础的温湿度采集上报系统，在此基础上，也可以做一些梗复杂的事情。比如加个红外，当温湿度到指定阈值，就触发开关空调；做个手机 App 或微信小程序，控制板子上的红外遥控……<br>
+场景还是很多的，就不一一引申了。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello World]]></title>
         <id>https://visoar.github.io/post/hello-gridea</id>

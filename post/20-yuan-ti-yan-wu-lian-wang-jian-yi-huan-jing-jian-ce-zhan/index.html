@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title> 20元体验物联网——简易环境监测站 | Gridea</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://visoar.github.io/favicon.ico?v=1577950804033">
+<link rel="stylesheet" href="https://visoar.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="在本例中，将使用廉价开发版，及通用物联网云平台带领大家搭建一个环境温湿度监测站。
+
+少啰嗦，先看东西
+
+
+〇 准备清单
+开发版
+这里我选择的是一款叫做 NodeMCU 的开发版。这个是非常好用方便且便宜的物联网开发板，自带 USB 转串口芯..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://visoar.github.io">
+        <img src="https://visoar.github.io/images/avatar.png?v=1577950804033" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/visoar/" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://twitter.com/visoarcn" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://visoar.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title"> 20元体验物联网——简易环境监测站</h2>
+            <div class="post-date">2019-01-01</div>
+            
+              <div class="feature-container" style="background-image: url('https://img.iotalk.top/5a8b1db6ly1fznas5ud94j21400u0779.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <p>在本例中，将使用廉价开发版，及通用物联网云平台带领大家搭建一个环境温湿度监测站。</p>
+<!-- more -->
+<h2 id="少啰嗦先看东西">少啰嗦，先看东西</h2>
+<p><img src="https://img.iotalk.top/5a8b1db6ly1fznas5ud94j21400u0779.jpg" alt="预览图" loading="lazy"><br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznas5upnxj20ku0fuq7p.jpg" alt="预览图" loading="lazy"></p>
+<h2 id="〇-准备清单">〇 准备清单</h2>
+<h3 id="开发版">开发版</h3>
+<p>这里我选择的是一款叫做 NodeMCU 的开发版。这个是非常好用方便且便宜的物联网开发板，自带 USB 转串口芯片、WiFi 及多个 GPIO 接口，可连接多个传感器。硬件基于 ESP8266 构建，内置 WiFi 支持。</p>
+<h3 id="传感器">传感器</h3>
+<p>传感器方面因为我对精度要求不是很高，所以选择了一款廉价的温湿度传感器——DHT11。这是一款温湿度传感器，可以用来测试环境温湿度，其精度湿度+-5%RH， 温度+-2℃，量程湿度20-90%RH， 温度0~50℃。</p>
+<h3 id="云平台准备">云平台准备</h3>
+<h4 id="云平台选择">云平台选择</h4>
+<p>我的目的是要将数据报到云端，然后做个展示，当然你也可以自行搭建 MQTT Broker 及数据存储、展示部分。这里我就方便些，选择一个提供物联网平台的云服务了。<br>
+在评估了百度天工物联网平台、阿里物联网套件、腾讯 IoT 套件后，决定选择百度天工。主要是两个方面的考虑：</p>
+<ul>
+<li>百度天工支持标准的 MQTT 接入</li>
+<li>存储的过程无需编码</li>
+<li>提供现成的可视化报表制作工具<br>
+不过也有一些问题，但是也算瑕不掩瑜吧：提供了物接入和物管理两个接入入口，但实际上物接入是裸协议，物管理会方便很多；日志查询交互有点反人类，默认进去无内容，需要点一下搜索才出来，排查的时候以为没有报日志上来。</li>
+</ul>
+<h4 id="云平台操作">云平台操作</h4>
+<ol>
+<li>注册百度云天工账号并认证 <a href="https://cloud.baidu.com/">天工-物联网平台</a><br>
+在左侧「产品服务」-「物联网服务」中，选择「物接入」，购买一个月的套餐（根据情况选择消息条数，因为我上报的数据比较多，所以我这里选了200万条）。<br>
+随后，在左侧菜单选择「物管理」。进入物管理后，点击「新建物模型」。<br>
+填写「名称」、「添加属性」。这里的属性就是我们需要采集的上报的信息，所以这里我加了两个属性：
+<ul>
+<li>Temperature 温度 number类型</li>
+<li>Humidity 湿度 number类型</li>
+</ul>
+</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://img.iotalk.top/5a8b1db6ly1fznawk2ccdj20nw0go0tp.jpg" alt="创建物模型" loading="lazy"></figure>
+<ol start="2">
+<li>创建完物模型，接下来创建物影子。名称自定义即可，这个在后面会用到。来自的物模型选择刚才创建的模型，点击创建即可完成。创建完成后，获取连接信息备用（连接信息中，key 是仅在生成后显示一次的）。</li>
+</ol>
+<figure data-type="image" tabindex="2"><img src="https://img.iotalk.top/5a8b1db6ly1fznayr1urzj219r0gjq4x.jpg" alt="" loading="lazy"></figure>
+<p>至此，准备工作告一段落。后面存储的部分（时序数据库 TSDB）可在这一步骤开启，也可连通之后再开启。</p>
+<h2 id="一-开发版系统选择">一 开发版系统选择</h2>
+<p>这款开发版可支持多种操作系统，如 NodeMCU（lua）、ESPEasy（WebUI）、MicroPython，以及我们今天要使用的 Mongoose OS（NodeJS）。</p>
+<p>不管是以上哪个固件，都可以跑通 MQTT。如在百度天工文档中，NodeMCU 固件下的 lua 版本<a href="https://cloud.baidu.com/doc/IOT/Quickstart-new.html#Arduino.20D1.20.26amp.3B.20NodeMCU">NodeMCU</a>。</p>
+<p>因为 Mongoose OS 刷系统不需要借助第三方工具，有一个 web 的控制台可以便于管理及调试，所以为了方便，我这次就选择了 Mongoose OS 的固件。</p>
+<h2 id="二-接线">二 接线</h2>
+<p>将传感器与板子之间使用杜邦线连接起来。DHT11 一般包含3个接头，但根据生产商不同，标注和顺序有所不同，接线时请查看模块上的标注。我手上这颗是按如下顺序标注的：</p>
+<ul>
+<li>VCC（+、3.3v等）</li>
+<li>DATA（D、S、SIG 等）</li>
+<li>GND（-、G 等）</li>
+</ul>
+<p>VCC 和 GND 可与板子上对应标注位连接；DATA 接到 GPIO 口即可。<br>
+因为 D4距离较近，于是 GPIO 口我就选了 D4 。<br>
+接线如图：<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznaz19z9sj20ci0ch75g.jpg" alt="" loading="lazy"><br>
+实物图：<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznazd9wrvj20kh0gqwib.jpg" alt="" loading="lazy"></p>
+<h2 id="三-刷系统">三 刷系统</h2>
+<h3 id="安装驱动">安装驱动</h3>
+<p>淘宝上可买到的 NodeMCU，所集成的 USB 转串口的芯片一般有 CP2102 和 CH340 两种，驱动下载地址分别为：<a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">CP2102</a> <a href="http://www.wch.cn/search?q=340&amp;t=downloads">CH-340</a>。</p>
+<h3 id="安装">安装</h3>
+<p>随后，我们要下载 Mongoose OS。根据你的操作系统，在 <a href="https://mongoose-os.com/software.html">MongooseOS 官网</a> 选择对应方式进行安装。</p>
+<p>我的是 macOS，所以直接使用以下命令安装。</p>
+<pre><code>curl -fsSL https://mongoose-os.com/downloads/mos/install.sh | /bin/bash
+~/.mos/bin/mos --help      
+~/.mos/bin/mos
+</code></pre>
+<p>安装完成后，就会自动打开浏览器。这时候你会看到引导界面。<br>
+如果没有启动，可输入 <code>cd .mos/bin/</code> 或者进入自定义的安装目录，执行 <code>./mos</code> 来运行管理界面。（Windows 用户直接双击即可）<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznaznj95vj20i20f1q55.jpg" alt="" loading="lazy"><br>
+接下来是烧录固件。将板子用 Micro-USB 的数据线与电脑连接，在引导界面，选择板子对应的接口，点击 Select。<br>
+平台会默认选择（ESP8266），App 的部分我选择了 demo-js，后面我会在这个 App 基础上进行改动以将数据采集并上报。<br>
+WiFi 的部分填写你希望板子连接到的热点（注意：仅支持2.4G）。随后点击 Done 即可，这时板子上指示灯会以较快频率闪动。</p>
+<h2 id="四-采集并上报数据">四 采集并上报数据</h2>
+<p>烧录完成后，即可在浏览器中看到代码编辑界面。系统启动后会执行<code>init.js</code> ，我们的代码足够少，所以这里我们就全部写到此文件。<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznazuqlbzj218y0u31do.jpg" alt="" loading="lazy"></p>
+<p>代码如下<br>
+其中</p>
+<ul>
+<li><code>pin</code> 是按 ESP8266 的编号，我们上面接线的 D4 对应 ESP8266  2 号 GPIO 口，所以这里填的2。</li>
+<li><code>$baidu/iot/shadow/xxxxxxxxxxx/update</code> 中的 xxxxxxxxxxx 替换为你在前面百度天工中创建的物影子名称。</li>
+</ul>
+<pre><code>load('api_dht.js');
+load('api_mqtt.js');
+load('api_timer.js');
+
+// GPIO pin which has a DHT sensor data wire connected
+let pin = 2;
+
+// Initialize DHT library
+let dht = DHT.create(pin, DHT.DHT11);
+
+// This function reads data from the DHT sensor every 10 second
+Timer.set(10000 /* milliseconds */, Timer.REPEAT, function() {
+  let t = dht.getTemp();
+  let h = dht.getHumidity();
+
+  if (isNaN(h) || isNaN(t)) {
+    print('Failed to read data from sensor');
+    return;
+  }
+  
+  let data = {&quot;reported&quot;:{ temperature:t, humidity:h }};
+  let myData = JSON.stringify(data);
+  
+  let ok = MQTT.pub(&quot;$baidu/iot/shadow/xxxxxxxxxxx/update&quot;, myData, 1);
+  print('Published:', ok ? 'yes' : 'no', ',message:', myData);
+  
+  print('Temperature:', t, '*C');
+  print('Humidity:', h, '%');
+}, null);
+</code></pre>
+<p>你一定会好奇，前面的连接信息哪里去了。在 MongooseOS 里，MQTT 的连接信息是写在配置文件的。<br>
+点击 MongooseOS 浏览器界面左侧的 <code>DeviceConf</code> ，可看到 MQTT 配置界面。将前面的连接信息填写进来，点击左上角的 <code>Save</code> 即可<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznb058hk4j20jh06q3z3.jpg" alt="" loading="lazy"></p>
+<p>再回到 <code>Projects</code> 的代码编写界面，点击那个长得像上传的图标（如图），保存文件并传输到板子上重启。<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznb0ayughj208z02dwel.jpg" alt="" loading="lazy"><br>
+这时，你就可以看到 Logs 里在打印温湿度信息，并显示上报成功（Yes）。如果为 no，可以配合本地 Log 及天工里「平台通用功能」-「日志」进行错误排查。</p>
+<p>传输成功后，在天工「物影子详情」页面上就可以看到刚刚上报的数据了。<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznb0i66tgj20vo0gr0ua.jpg" alt="" loading="lazy"></p>
+<p>至此，就完成了数据采集到上报的全过程。</p>
+<p>等一哈...一开始的第二张图不是有个好看的图么，难道是假的？<br>
+当然不是。接下来的部分不需要写代码了，直接在云平台上配置即可。</p>
+<h2 id="五-数据存储">五 数据存储</h2>
+<p>我展示的图表里，有实时值和折线图。其中折线图是过去一段时间的历史数据。所以，我们需要将数据存下来。在一开始，我想着把数据存到 MySQL 或者 MongoDB，在看了一些物联网平台，尤其是百度这个天工之后，发现「时序数据库 TSDB」是一个更好的选择。<br>
+随后发现，在天工里，我们上报到物影子的数据，如果需要简单存储到 TSDB，压根不用写代码。不过如果需要复杂的逻辑处理，好像还是要写代码，或者用一个叫规则引擎的服务。<br>
+扯远了，这次我们要存的东西比较简单，所以就用现成的功能了。在「物详情」页面（之前获取连接信息那有图），点击编辑，开启「存储配置」，把「不存储」改成「上报即存储」，选择需要存到哪个数据库（没有的话先创建个，默认配置就够用），度量名称填写 <code>monitor</code> ，点击保存即可。<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznb0som26j20n30aqgmj.jpg" alt="" loading="lazy"></p>
+<p>这样存储的部分就配置好了，每次上报的数据，都会自动给存到 TSDB 里。可以在左侧导航选择「时序数据库」，点对应数据库的「查询面板」查看存进去的历史数据了。</p>
+<h2 id="六-做个好看的报表">六 做个好看的报表</h2>
+<p>数据存好了，接下来就是展示出来。<br>
+同样的，继续使用天工的一个叫「物可视」的功能。这也是我选用百度这套平台的主要原因之一。<br>
+这个功能的引导略少，我是看文档才了解怎么用，会了之后发现超级超级简单方便。<br>
+我以做一张我截图那种报表为例，来大概说一下步骤：</p>
+<ul>
+<li>首先进到物可视，点创建「仪表盘」</li>
+<li>进入后，顶上有俩标签，选择「数据表」</li>
+<li>左侧新建数据表，因为我有俩仪表指针图和一个时序折线图，所以这一步我要创建两个数据表，一个时序数据库类型，一个物管理类型</li>
+<li>创建完后，返回「仪表盘」。将需要的图拖动到空白处，点对应的图，右侧设置一下绑定数据，如下图<br>
+<img src="https://img.iotalk.top/5a8b1db6ly1fznb10pbksj20qz0huq5w.jpg" alt="" loading="lazy"></li>
+</ul>
+<p>这里介绍了一小部分功能，需要展示更多的部分，可以再看看文档。</p>
+<h2 id="结束">结束</h2>
+<p>至此，整个搭建到展示的过程完成。<br>
+一共花费为 20 元 = （NodeMCU板 14.5 元）+ （DHT11传感器 4.5元） + （时序数据库 1 元）<br>
+这是套最基础的温湿度采集上报系统，在此基础上，也可以做一些梗复杂的事情。比如加个红外，当温湿度到指定阈值，就触发开关空调；做个手机 App 或微信小程序，控制板子上的红外遥控……<br>
+场景还是很多的，就不一一引申了。</p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://visoar.github.io/post/hello-gridea">
+                  <h3 class="post-title">
+                    Hello World
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>

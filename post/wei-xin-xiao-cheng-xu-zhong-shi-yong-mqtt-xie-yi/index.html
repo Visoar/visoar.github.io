@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>微信小程序中使用 MQTT 协议 | Gridea</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://visoar.github.io/favicon.ico?v=1577950804033">
+<link rel="stylesheet" href="https://visoar.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="由于小程序的限制，仅允许备案域名通过加密协议连接（https 和 wss）。
+刚好，MQTT 的是可以基于 wss 来传输的，所以，在小程序中连接 MQTT 需就可以通过 MQTT over wss 的方式实现。
+
+开源库
+目前支持 MQT..." />
+    <meta name="keywords" content="微信小程序,MQTT,WSS,物联网" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://visoar.github.io">
+        <img src="https://visoar.github.io/images/avatar.png?v=1577950804033" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/visoar/" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://twitter.com/visoarcn" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://visoar.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">微信小程序中使用 MQTT 协议</h2>
+            <div class="post-date">2020-01-02</div>
+            
+              <div class="feature-container" style="background-image: url('https://img.iotalk.top/Fso5JyIc7njd1NUPUFbOJCW-yOSE')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <p>由于小程序的限制，仅允许备案域名通过加密协议连接（https 和 wss）。</p>
+<p>刚好，MQTT 的是可以基于 wss 来传输的，所以，在小程序中连接 MQTT 需就可以通过 MQTT over wss 的方式实现。</p>
+<!-- more -->
+<h3 id="开源库">开源库</h3>
+<p>目前支持 MQTT 在微信小程序里使用的库有不少，这里推荐以下两个：</p>
+<blockquote>
+<p>https://github.com/tennessine/paho.mqtt.wxapp<br>
+https://github.com/mqttjs/MQTT.js</p>
+</blockquote>
+<h3 id="demo">Demo</h3>
+<p>于是，基于上面的开源库 paho.mqtt.wxapp 做了个 demo，可以微信扫码体验下。</p>
+<figure data-type="image" tabindex="1"><img src="https://img.iotalk.top/Fso5JyIc7njd1NUPUFbOJCW-yOSE" alt="「MQTT 工具」小程序" loading="lazy"></figure>
+<p>服务器用了百度云天工的物接入，因为我用的广州区域，就适配了下广州。</p>
+<p>你可以自己在天工上创建物接入项目，获取账户密码。</p>
+<p>为了方便大家玩耍，这里提供一组测试用的账户和密码（不承诺持久有效）：</p>
+<blockquote>
+<p>账户：<code>1mvy4n5/iotalk-user</code><br>
+密码：<code>pyt1Qoy1QB7YbtOF</code><br>
+ClientID：代码中已默认填充（此处无需填写）</p>
+</blockquote>
+<p>可测试的主题：</p>
+<blockquote>
+<p>test（pub 与 sub 均已绑定权限）</p>
+</blockquote>
+<h3 id="截图示例">截图示例</h3>
+<figure data-type="image" tabindex="2"><img src="https://img.iotalk.top/FjtSsJ2LX498WYrda-C9YG2URaxX@f_png,q_90" alt="输入鉴权信息，完成登录" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://img.iotalk.top/FqSmJXuZBkxp3hko9ofZE8wir9Ye@f_png,q_90" alt="填写主题名称（test为例），完成订阅" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://img.iotalk.top/FqSmJXuZBkxp3hko9ofZE8wir9Ye@f_png,q_90" alt="向主题（test）发送消息" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://img.iotalk.top/FuKIE31pTgj6xmQiSvcLnofBEMI7@f_png,q_90" alt="查看收到的消息（可配合电脑或其他手机端测试玩耍）" loading="lazy"></figure>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://visoar.github.io/tag/YC9Tj27Bk" class="tag">
+                    微信小程序
+                  </a>
+                
+                  <a href="https://visoar.github.io/tag/pio-ArFcge" class="tag">
+                    MQTT
+                  </a>
+                
+                  <a href="https://visoar.github.io/tag/BiH5Ex1Ggw" class="tag">
+                    WSS
+                  </a>
+                
+                  <a href="https://visoar.github.io/tag/vEzUDlKlz1" class="tag">
+                    物联网
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://visoar.github.io/post/dong-tai-chuang-jian-bai-du-yun-tian-gong-wu-jie-ru-iot-hubde-she-bei-wu-ying-zi">
+                  <h3 class="post-title">
+                    动态创建百度云天工物接入（IoT Hub）的设备物影子
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>
