@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://visoar.github.io</id>
+    <id>https://visoar.top</id>
     <title>Visoar</title>
-    <updated>2020-01-02T07:54:06.230Z</updated>
+    <updated>2020-01-02T07:56:14.355Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://visoar.github.io"/>
-    <link rel="self" href="https://visoar.github.io/atom.xml"/>
+    <link rel="alternate" href="https://visoar.top"/>
+    <link rel="self" href="https://visoar.top/atom.xml"/>
     <subtitle>「生命在于折腾」</subtitle>
-    <logo>https://visoar.github.io/images/avatar.png</logo>
-    <icon>https://visoar.github.io/favicon.ico</icon>
+    <logo>https://visoar.top/images/avatar.png</logo>
+    <icon>https://visoar.top/favicon.ico</icon>
     <rights>All rights reserved 2020, Visoar</rights>
     <entry>
         <title type="html"><![CDATA[微信小程序中使用 MQTT 协议]]></title>
-        <id>https://visoar.github.io/post/wei-xin-xiao-cheng-xu-zhong-shi-yong-mqtt-xie-yi</id>
-        <link href="https://visoar.github.io/post/wei-xin-xiao-cheng-xu-zhong-shi-yong-mqtt-xie-yi">
+        <id>https://visoar.top/post/wei-xin-xiao-cheng-xu-zhong-shi-yong-mqtt-xie-yi</id>
+        <link href="https://visoar.top/post/wei-xin-xiao-cheng-xu-zhong-shi-yong-mqtt-xie-yi">
         </link>
         <updated>2020-01-02T07:30:05.000Z</updated>
         <summary type="html"><![CDATA[<p>由于小程序的限制，仅允许备案域名通过加密协议连接（https 和 wss）。</p>
@@ -52,8 +52,8 @@ ClientID：代码中已默认填充（此处无需填写）</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[动态创建百度云天工物接入（IoT Hub）的设备物影子]]></title>
-        <id>https://visoar.github.io/post/dong-tai-chuang-jian-bai-du-yun-tian-gong-wu-jie-ru-iot-hubde-she-bei-wu-ying-zi</id>
-        <link href="https://visoar.github.io/post/dong-tai-chuang-jian-bai-du-yun-tian-gong-wu-jie-ru-iot-hubde-she-bei-wu-ying-zi">
+        <id>https://visoar.top/post/dong-tai-chuang-jian-bai-du-yun-tian-gong-wu-jie-ru-iot-hubde-she-bei-wu-ying-zi</id>
+        <link href="https://visoar.top/post/dong-tai-chuang-jian-bai-du-yun-tian-gong-wu-jie-ru-iot-hubde-she-bei-wu-ying-zi">
         </link>
         <updated>2019-01-28T07:31:28.000Z</updated>
         <summary type="html"><![CDATA[<p>本例实现通过百度云函数计算，动态创建天工物接入的设备影子，并返回连接信息（影子的用户名&amp;密码）；并可搭配规则引擎，实现通过MQTT消息创建影子。</p>
@@ -207,8 +207,8 @@ ClientID：代码中已默认填充（此处无需填写）</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[ 20元体验物联网——简易环境监测站]]></title>
-        <id>https://visoar.github.io/post/20-yuan-ti-yan-wu-lian-wang-jian-yi-huan-jing-jian-ce-zhan</id>
-        <link href="https://visoar.github.io/post/20-yuan-ti-yan-wu-lian-wang-jian-yi-huan-jing-jian-ce-zhan">
+        <id>https://visoar.top/post/20-yuan-ti-yan-wu-lian-wang-jian-yi-huan-jing-jian-ce-zhan</id>
+        <link href="https://visoar.top/post/20-yuan-ti-yan-wu-lian-wang-jian-yi-huan-jing-jian-ce-zhan">
         </link>
         <updated>2019-01-01T11:22:01.000Z</updated>
         <summary type="html"><![CDATA[<p>在本例中，将使用廉价开发版，及通用物联网云平台带领大家搭建一个环境温湿度监测站。</p>
@@ -362,8 +362,8 @@ Timer.set(10000 /* milliseconds */, Timer.REPEAT, function() {
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello World]]></title>
-        <id>https://visoar.github.io/post/hello-gridea</id>
-        <link href="https://visoar.github.io/post/hello-gridea">
+        <id>https://visoar.top/post/hello-gridea</id>
+        <link href="https://visoar.top/post/hello-gridea">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>准备使用 <strong>Gridea</strong> 重新开始写 blog（捂脸）<br>
