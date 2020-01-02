@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://visoar.top</id>
     <title>Visoar</title>
-    <updated>2020-01-02T08:09:42.302Z</updated>
+    <updated>2020-01-02T08:15:37.717Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://visoar.top"/>
     <link rel="self" href="https://visoar.top/atom.xml"/>
@@ -15,7 +15,7 @@
         <id>https://visoar.top/post/wei-xin-xiao-cheng-xu-zhong-shi-yong-mqtt-xie-yi</id>
         <link href="https://visoar.top/post/wei-xin-xiao-cheng-xu-zhong-shi-yong-mqtt-xie-yi">
         </link>
-        <updated>2020-01-02T07:30:05.000Z</updated>
+        <updated>2019-03-25T03:30:05.000Z</updated>
         <summary type="html"><![CDATA[<p>由于小程序的限制，仅允许备案域名通过加密协议连接（https 和 wss）。</p>
 <p>刚好，MQTT 的是可以基于 wss 来传输的，所以，在小程序中连接 MQTT 需就可以通过 MQTT over wss 的方式实现。</p>
 ]]></summary>
