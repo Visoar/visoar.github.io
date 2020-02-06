@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://visoar.top</id>
     <title>Visoar</title>
-    <updated>2020-02-06T08:04:45.372Z</updated>
+    <updated>2020-02-06T08:05:40.980Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://visoar.top"/>
     <link rel="self" href="https://visoar.top/atom.xml"/>
@@ -16,11 +16,17 @@
         <link href="https://visoar.top/post/gei-ni-chi-hui-de-shu-mei-pai-zhao-dian-huo-shi-de-you-yi-ge-wu-lian-wang-wen-shi-du-jian-ce">
         </link>
         <updated>2020-02-05T09:02:29.000Z</updated>
+        <summary type="html"><![CDATA[<h1 id="给你吃灰的树莓派找点活是的又一个物联网温湿度监测">给你吃灰的树莓派找点活（是的，又一个物联网温湿度监测）</h1>
+<h2 id="买前生产力买后吃灰去">买前生产力，买后吃灰去</h2>
+<p>很多同学的树莓派，买之前计划了很多使用场景，然而买回来以后折腾了几次，就默默放在那吃灰了。</p>
+<p>所以，这篇文章就是来尝试给你的树莓派找点活干的。当然，也可能成为一些同学入手 pi 的原因。吃灰——永远在循环...</p>
+]]></summary>
         <content type="html"><![CDATA[<h1 id="给你吃灰的树莓派找点活是的又一个物联网温湿度监测">给你吃灰的树莓派找点活（是的，又一个物联网温湿度监测）</h1>
 <h2 id="买前生产力买后吃灰去">买前生产力，买后吃灰去</h2>
 <p>很多同学的树莓派，买之前计划了很多使用场景，然而买回来以后折腾了几次，就默默放在那吃灰了。</p>
-<p>所以，这篇文章就是来尝试给你的树莓派找点活干的。当然，也可能成为一些同学入手 pi 的原因。吃灰——永远在循环...<br>
-<img src="https://visoar.top/post-images/15759680281029.jpg" alt="-w300" loading="lazy"></p>
+<p>所以，这篇文章就是来尝试给你的树莓派找点活干的。当然，也可能成为一些同学入手 pi 的原因。吃灰——永远在循环...</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://visoar.top/post-images/15759680281029.jpg" alt="-w300" loading="lazy"></figure>
 <h2 id="准备">准备</h2>
 <h3 id="硬件">硬件</h3>
 <p>树莓派（就不配图了）<br>
@@ -36,7 +42,7 @@ DHT11 温湿度传感器（可根据自己需要更换）和杜邦线<br>
 +  humidity 湿度 number类型
 </code></pre>
 <p>创建完物模型，接下来创建物影子。名称自定义即可，这个在后面会用到。来自的物模型选择刚才创建的模型，点击创建即可完成。创建完成后，获取连接信息备用（需要注意的是，连接信息中，key 是仅在生成后显示一次的，请下载保存好）。</p>
-<figure data-type="image" tabindex="1"><img src="https://visoar.top/post-images/15809062261288.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://visoar.top/post-images/15809062261288.jpg" alt="" loading="lazy"></figure>
 <h3 id="树莓派nodered-准备工作">树莓派NodeRED 准备工作</h3>
 <p>树莓派的系统安装这里就不展开了，假定你手上的树莓派是一个完成了系统初始化的版本。<br>
 NodeRED 在树莓派中有预置，不过版本太旧了。所以树莓派初始化完成之后第一件事，就是升级 NodeRED。</p>
