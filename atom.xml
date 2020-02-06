@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://visoar.top</id>
     <title>Visoar</title>
-    <updated>2020-02-06T08:10:06.864Z</updated>
+    <updated>2020-02-06T08:10:52.553Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://visoar.top"/>
     <link rel="self" href="https://visoar.top/atom.xml"/>
@@ -11,7 +11,7 @@
     <icon>https://visoar.top/favicon.ico</icon>
     <rights>All rights reserved 2020, Visoar</rights>
     <entry>
-        <title type="html"><![CDATA[给你吃灰的树莓派找点活（是的，又一个物联网温湿度监测）]]></title>
+        <title type="html"><![CDATA[给你吃灰的树莓派找点活（是的，又一个温湿度监测）]]></title>
         <id>https://visoar.top/post/gei-ni-chi-hui-de-shu-mei-pai-zhao-dian-huo-shi-de-you-yi-ge-wu-lian-wang-wen-shi-du-jian-ce</id>
         <link href="https://visoar.top/post/gei-ni-chi-hui-de-shu-mei-pai-zhao-dian-huo-shi-de-you-yi-ge-wu-lian-wang-wen-shi-du-jian-ce">
         </link>
