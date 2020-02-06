@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>给你吃灰的树莓派找点活（是的，又一个物联网温湿度监测） | Visoar</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://visoar.top/favicon.ico?v=1580976280966">
+<link rel="stylesheet" href="https://visoar.top/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="给你吃灰的树莓派找点活（是的，又一个物联网温湿度监测）
+买前生产力，买后吃灰去
+很多同学的树莓派，买之前计划了很多使用场景，然而买回来以后折腾了几次，就默默放在那吃灰了。
+所以，这篇文章就是来尝试给你的树莓派找点活干的。当然，也可能成为一些..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://visoar.top">
+        <img src="https://visoar.top/images/avatar.png?v=1580976280966" class="site-logo">
+        <h1 class="site-title">Visoar</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/visoar/" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+          <a class="social-link" href="https://twitter.com/visoarcn" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      「生命在于折腾」
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c2d1d15a244e4e9437002fbafc57ecf0";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+ | <a class="rss" href="https://visoar.top/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">给你吃灰的树莓派找点活（是的，又一个物联网温湿度监测）</h2>
+            <div class="post-date">2020-02-05</div>
+            
+              <div class="feature-container" style="background-image: url('https://visoar.top/post-images/gei-ni-chi-hui-de-shu-mei-pai-zhao-dian-huo-shi-de-you-yi-ge-wu-lian-wang-wen-shi-du-jian-ce.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h1 id="给你吃灰的树莓派找点活是的又一个物联网温湿度监测">给你吃灰的树莓派找点活（是的，又一个物联网温湿度监测）</h1>
+<h2 id="买前生产力买后吃灰去">买前生产力，买后吃灰去</h2>
+<p>很多同学的树莓派，买之前计划了很多使用场景，然而买回来以后折腾了几次，就默默放在那吃灰了。</p>
+<p>所以，这篇文章就是来尝试给你的树莓派找点活干的。当然，也可能成为一些同学入手 pi 的原因。吃灰——永远在循环...<br>
+<img src="https://visoar.top/post-images/15759680281029.jpg" alt="-w300" loading="lazy"></p>
+<h2 id="准备">准备</h2>
+<h3 id="硬件">硬件</h3>
+<p>树莓派（就不配图了）<br>
+DHT11 温湿度传感器（可根据自己需要更换）和杜邦线<br>
+<img src="https://visoar.top/post-images/15759685855490.jpg" alt="-w300" loading="lazy"></p>
+<h3 id="云端配置">云端配置</h3>
+<p>云端可以使用任一一家成熟支持 MQTT 标准协议的物联网云平台，如百度天工、阿里IoT、移动OneNET 等。我平时用百度天工（毕竟完善还便宜）比较多，这里就以天工的物联网平台为例了。</p>
+<p>注册百度云天工账号并认证 <a href="https://iot.baidu.com/">天工-物联网平台</a>，在左侧「产品服务」-「物联网服务」中，选择「物接入」，开通即可。</p>
+<p>随后，进入项目列表，创建一个设备型项目。点项目名称可进入到项目详情页面，点击「新建物模型」。<br>
+<img src="https://visoar.top/post-images/15809061120398.jpg" alt="" loading="lazy"></p>
+<p>填写「名称」、「添加属性」。这里的属性就是我们需要采集的上报的信息，所以这里我加了两个属性：</p>
+<pre><code>+  temperature 温度 number类型
++  humidity 湿度 number类型
+</code></pre>
+<p>创建完物模型，接下来创建物影子。名称自定义即可，这个在后面会用到。来自的物模型选择刚才创建的模型，点击创建即可完成。创建完成后，获取连接信息备用（需要注意的是，连接信息中，key 是仅在生成后显示一次的，请下载保存好）。</p>
+<figure data-type="image" tabindex="1"><img src="https://visoar.top/post-images/15809062261288.jpg" alt="" loading="lazy"></figure>
+<h3 id="树莓派nodered-准备工作">树莓派NodeRED 准备工作</h3>
+<p>树莓派的系统安装这里就不展开了，假定你手上的树莓派是一个完成了系统初始化的版本。<br>
+NodeRED 在树莓派中有预置，不过版本太旧了。所以树莓派初始化完成之后第一件事，就是升级 NodeRED。</p>
+<p>在「终端」中执行以下命令</p>
+<pre><code>bash &lt;(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)
+</code></pre>
+<p>按照提示，选择 y 继续安装（需要注意，安装时会同时自动更新 NodeJS）<br>
+<img src="https://visoar.top/post-images/15808941092183.jpg" alt="" loading="lazy"></p>
+<p>等待几分钟就安装成功了。随后执行 <code>node-red-start</code> 来启动 NodeRED，启动完成后用浏览器打开<code>http://{your_pi_ip-address}:1880</code> 即可看到 NodeRED 的界面，其中 <code>{your_pi_ip-address}</code> 替换成你树莓派的 IP，在树莓派本机上打开的话也可以直接用 <code>localhost</code> 或者 <code>127.0.0.1</code> 替换。打开后看到如下界面。</p>
+<p>如果需要之后树莓派开机启动，可以执行 <code>sudo systemctl enable nodered.service</code>添加 NodeRED 到启动项。<br>
+<img src="https://visoar.top/post-images/15809052821072.jpg" alt="" loading="lazy"></p>
+<h2 id="动手">动手</h2>
+<h3 id="传感器连接">传感器连接</h3>
+<p>我手上的 DHT11 传感器有三个接口，其中<br>
+<img src="https://visoar.top/post-images/15809743864038.jpg" alt="" loading="lazy"></p>
+<ul>
+<li>vcc 或 + 接到树莓派的供电</li>
+<li>gnd 或 - 接到接地</li>
+<li>data 接 GPIO 4（可任一数据口，但需注意修改对应配置里面 Pin 号）<br>
+<img src="https://visoar.top/post-images/15759685278899.jpg" alt="-w600" loading="lazy"></li>
+</ul>
+<h3 id="构建-nodered-流程flow">构建 NodeRED 流程（Flow）</h3>
+<p>硬件接好了，回到屏幕上。</p>
+<h4 id="第一步安装-dht-读取节点">第一步：安装 DHT 读取节点</h4>
+<p>NodeRED 中读取 DHT11 传感数据的节点默认是没有安装的，按以下步骤安装对应节点（Node）<code>node-red-contrib-dht-sensor</code>。<br>
+<img src="https://visoar.top/post-images/15809106647491.jpg" alt="" loading="lazy"></p>
+<h4 id="第二步导入-flow">第二步：导入 Flow</h4>
+<p>在 NodeRED 中，菜单中选择「导入」。将以下内容贴进去即可生成对应 Flow 。</p>
+<pre><code>[{&quot;id&quot;:&quot;82b6262e.bf49e8&quot;,&quot;type&quot;:&quot;tab&quot;,&quot;label&quot;:&quot;pi-H/T&quot;,&quot;disabled&quot;:false,&quot;info&quot;:&quot;&quot;},{&quot;id&quot;:&quot;2560d913.ffaba6&quot;,&quot;type&quot;:&quot;rpi-dht22&quot;,&quot;z&quot;:&quot;82b6262e.bf49e8&quot;,&quot;name&quot;:&quot;&quot;,&quot;topic&quot;:&quot;rpi-dht11&quot;,&quot;dht&quot;:&quot;11&quot;,&quot;pintype&quot;:&quot;0&quot;,&quot;pin&quot;:4,&quot;x&quot;:340,&quot;y&quot;:240,&quot;wires&quot;:[[&quot;5a42c596.cc8fec&quot;]]},{&quot;id&quot;:&quot;85fe1005.4d91b&quot;,&quot;type&quot;:&quot;inject&quot;,&quot;z&quot;:&quot;82b6262e.bf49e8&quot;,&quot;name&quot;:&quot;&quot;,&quot;topic&quot;:&quot;&quot;,&quot;payload&quot;:&quot;&quot;,&quot;payloadType&quot;:&quot;date&quot;,&quot;repeat&quot;:&quot;60&quot;,&quot;crontab&quot;:&quot;&quot;,&quot;once&quot;:false,&quot;onceDelay&quot;:0.1,&quot;x&quot;:160,&quot;y&quot;:240,&quot;wires&quot;:[[&quot;2560d913.ffaba6&quot;]]},{&quot;id&quot;:&quot;59a8a484.1ef38c&quot;,&quot;type&quot;:&quot;debug&quot;,&quot;z&quot;:&quot;82b6262e.bf49e8&quot;,&quot;name&quot;:&quot;&quot;,&quot;active&quot;:false,&quot;tosidebar&quot;:true,&quot;console&quot;:false,&quot;tostatus&quot;:false,&quot;complete&quot;:&quot;payload&quot;,&quot;targetType&quot;:&quot;msg&quot;,&quot;x&quot;:730,&quot;y&quot;:300,&quot;wires&quot;:[]},{&quot;id&quot;:&quot;5a42c596.cc8fec&quot;,&quot;type&quot;:&quot;change&quot;,&quot;z&quot;:&quot;82b6262e.bf49e8&quot;,&quot;name&quot;:&quot;&quot;,&quot;rules&quot;:[{&quot;t&quot;:&quot;move&quot;,&quot;p&quot;:&quot;payload&quot;,&quot;pt&quot;:&quot;msg&quot;,&quot;to&quot;:&quot;payload.reported.temperature&quot;,&quot;tot&quot;:&quot;msg&quot;},{&quot;t&quot;:&quot;move&quot;,&quot;p&quot;:&quot;humidity&quot;,&quot;pt&quot;:&quot;msg&quot;,&quot;to&quot;:&quot;payload.reported.humidity&quot;,&quot;tot&quot;:&quot;msg&quot;}],&quot;action&quot;:&quot;&quot;,&quot;property&quot;:&quot;&quot;,&quot;from&quot;:&quot;&quot;,&quot;to&quot;:&quot;&quot;,&quot;reg&quot;:false,&quot;x&quot;:520,&quot;y&quot;:240,&quot;wires&quot;:[[&quot;59a8a484.1ef38c&quot;,&quot;e86b6792.1a73c8&quot;]]},{&quot;id&quot;:&quot;e86b6792.1a73c8&quot;,&quot;type&quot;:&quot;mqtt out&quot;,&quot;z&quot;:&quot;82b6262e.bf49e8&quot;,&quot;name&quot;:&quot;Send to Cloud&quot;,&quot;topic&quot;:&quot;$baidu/iot/shadow/raspberrypi/update&quot;,&quot;qos&quot;:&quot;0&quot;,&quot;retain&quot;:&quot;false&quot;,&quot;broker&quot;:&quot;451f3b59.7bb104&quot;,&quot;x&quot;:740,&quot;y&quot;:240,&quot;wires&quot;:[]},{&quot;id&quot;:&quot;451f3b59.7bb104&quot;,&quot;type&quot;:&quot;mqtt-broker&quot;,&quot;z&quot;:&quot;&quot;,&quot;name&quot;:&quot;raspberrypi&quot;,&quot;broker&quot;:&quot;a8fcf75.mqtt.iot.gz.baidubce.com&quot;,&quot;port&quot;:&quot;1883&quot;,&quot;clientid&quot;:&quot;raspberrypi&quot;,&quot;usetls&quot;:false,&quot;compatmode&quot;:false,&quot;keepalive&quot;:&quot;60&quot;,&quot;cleansession&quot;:true,&quot;birthTopic&quot;:&quot;&quot;,&quot;birthQos&quot;:&quot;0&quot;,&quot;birthPayload&quot;:&quot;&quot;,&quot;closeTopic&quot;:&quot;&quot;,&quot;closeQos&quot;:&quot;0&quot;,&quot;closePayload&quot;:&quot;&quot;,&quot;willTopic&quot;:&quot;&quot;,&quot;willQos&quot;:&quot;0&quot;,&quot;willPayload&quot;:&quot;&quot;}]
+</code></pre>
+<p>当然，你也可以手动拖拽Node来连接并配置。需要注意的是，上面的配置中，需要选择接线时所选的对应 GPIO Pin 针脚号。</p>
+<h4 id="第三步配置mqtt">第三步：配置MQTT</h4>
+<p>双击命名为 Send to Cloud 的 MQTT Out 节点，打开如下配置界面。<br>
+<img src="https://visoar.top/post-images/15809734845857.jpg" alt="" loading="lazy"></p>
+<p>添加 MQTT Broker 的时候就用的上前面下载留存的「连接信息」了。对应从里面 copy 填写就可以了。<br>
+<img src="https://visoar.top/post-images/15809736493193.jpg" alt="" loading="lazy"></p>
+<h4 id="第四步测试连接结果">第四步：测试连接结果</h4>
+<p>点击右上角的部署，就可以看到 MQTT 节点状态变成了已连接。也可以开启 debug 在控制台查看到输出。<br>
+<img src="https://visoar.top/post-images/15809738151509.jpg" alt="" loading="lazy"></p>
+<p>对应云端，也可以进入创建好的物影子，在详情页面看到对应上报的数据（「当前值」列）以及对应时间。<br>
+<img src="https://visoar.top/post-images/15809738946397.jpg" alt="" loading="lazy"></p>
+<h4 id="第五步配置云端可视化仪表盘">第五步：配置云端可视化仪表盘</h4>
+<p>如果需要历史曲线，可以配置在上报时保存对应数据，将数据存储在 TSDB。<br>
+然后就可以用强大的物可视来完成仪表盘的创建了。此步奏和之前教程一致，可翻出来看看，像做 PPT 一样座出来一个大屏。<br>
+<img src="https://visoar.top/post-images/15809757647540.jpg" alt="" loading="lazy"></p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://visoar.top/post/wei-xin-xiao-cheng-xu-zhong-shi-yong-mqtt-xie-yi">
+                  <h3 class="post-title">
+                    微信小程序中使用 MQTT 协议
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '99593f518fe67b2c1c26',
+        clientSecret: '934ece882dd5eb71d005ebabf6e4d68d714a44a8',
+        repo: 'visoar.github.io',
+        owner: 'visoar',
+        admin: ['visoar'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
